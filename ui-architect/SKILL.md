@@ -1,6 +1,6 @@
 ---
 name: ui-architect
-description: Senior UI/UX lead and UI architect for React + TypeScript + Tailwind projects. Use when starting or setting up a frontend project, analysing or improving a frontend codebase, planning folder structure, choosing a theme or UI density/spacing, making layouts responsive, or designing and building a page, component (table, sidebar, modal, dialog, form) or frontend API service. Follows existing patterns or sets up new ones. Not for backend-only work, non-React frameworks, test-only fixes or PR bug review.
+description: Senior UI/UX lead and UI architect for React + TypeScript + Tailwind projects. Use when starting or setting up a frontend project, analysing or improving a frontend codebase, planning folder structure, choosing a theme or UI density/spacing, making layouts responsive, designing and building a page, component (table, sidebar, modal, popup, dialog, form) or frontend API service, building UI from a reference image or mock-up, or fixing UI bugs (e.g. a popup not closing, broken layout, a form not submitting). Follows existing patterns or sets up new ones. Not for backend-only work, non-React frameworks, test-only fixes or PR review.
 ---
 
 # UI Architect
@@ -163,6 +163,44 @@ Go in this order. Each step ends with a **checkpoint**: present it, recommend, a
 
 ---
 
+## Reference images (screenshots, mock-ups, Figma exports)
+
+Use this when the user attaches an image or points to one, as part of a feature or a new project.
+
+1. **Read it and write back what you see:** layout and sizes, sections and grouping, item anatomy, active/selected style, icon style, typography, spacing, radius, colours. → *Checkpoint: "Is this right?"*
+2. **List what the image can't show,** with a recommendation for each: hover/focus states, collapsed or empty states, mobile layout, dark mode, behaviour (what clicks do, what badges count).
+3. **Map the image to the project; don't copy it pixel for pixel:**
+   - **Colours:** Existing mode maps them to the nearest existing tokens. If they differ a lot, ask: "match the image exactly (new tokens) or adapt to your theme?" Recommend adapting. In New mode, the image may seed the theme if the user wants.
+   - **Icons:** redraw them with the project's icon set.
+   - **Spacing and size:** adjust to the project's density (New mode: the image may set it).
+   - **Logos, brand names and product content from other companies:** never copy them. Take the layout and style only.
+4. **Plan:** add a "Reference → implementation" section to the feature plan. List each visual element, how it will be built, and any intentional differences.
+5. **After building, compare:** if the tool can take a screenshot, compare it side by side with the reference and fix the differences. Otherwise check the result against the spec from step 1.
+
+---
+
+## Bug-fix flow
+
+Use this when the user reports something broken: a popup not closing, broken layout, a wrong state, a form not submitting, a console error.
+
+1. **Understand.** Ask only what's missing: steps to reproduce, expected vs actual, which screen, device/browser, console error.
+2. **Find the root cause, not the symptom.** Trace the code until you can explain *why* it happens. State it in one or two lines before fixing.
+3. **Classify:**
+   - **UI-only:** fix it.
+   - **Data or API:** fix the frontend handling (e.g. a missing error state) and report the API problem.
+   - **Backend:** explain the cause and propose the fix. Change backend code only if the user approves.
+4. **Fix minimally, following existing patterns.** No redesign or refactor while fixing.
+5. **Look for the same bug elsewhere.** Search for the same pattern (e.g. other popups built the same way). **Report** the other places and the real fix (e.g. a shared component), but don't change them unless asked.
+6. **Verify:**
+   - Run lint/typecheck if allowed.
+   - If the tool has a browser, reproduce the bug before the fix and confirm it's gone after.
+   - Otherwise give the user the exact steps to check manually.
+7. **Summary:** root cause, files changed, how it was verified, and related issues found.
+
+**Checkpoint only when** the fix changes behaviour or UX, touches a shared component used across many screens, or needs backend changes. A local fix goes straight through.
+
+---
+
 ## Quality bar (every screen you build or change)
 
 - **Responsive:** works from mobile width up to large desktop. No horizontal page scroll.
@@ -188,5 +226,7 @@ Go in this order. Each step ends with a **checkpoint**: present it, recommend, a
 | Existing, first use | analysis (full or short) + inconsistency questions + decisions-file question, in one message |
 | Existing | each feature plan |
 | Small change | none, unless something is ambiguous |
+| Reference image | after "what I see" (then the usual feature-plan checkpoint) |
+| Bug fix | none for local fixes; before fixes that change behaviour/UX, touch shared components, or need backend changes |
 
 Between checkpoints, work without asking.

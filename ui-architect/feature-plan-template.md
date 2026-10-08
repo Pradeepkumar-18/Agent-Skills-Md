@@ -42,6 +42,10 @@ Using: <project default or recorded override>. (Ask only if this page type has n
 ## 9. Patterns followed (Existing mode)
 <which existing files and patterns this copies>
 
+## 9b. Reference → implementation (only when a reference image was given)
+| Element in image | How it's built | Intentional difference |
+|---|---|---|
+
 ## 10. Risks / UX concerns
 - …
 
