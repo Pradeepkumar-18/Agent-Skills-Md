@@ -30,6 +30,8 @@ Works with **Antigravity**, **Gemini CLI**, **Codex CLI** and **Claude Code** (A
 
 ### Rules it always follows
 - **Your existing code wins.** It never adds Tailwind, TypeScript or libraries unasked, and writes code for your installed versions.
+- **Custom components only:** no browser-default controls (date picker, checkbox, select…) and no UI libraries. Every control is a custom, reusable component: `Input, Textarea, NumberInput, Select, MultiSelect, Checkbox, Radio, Switch, DatePicker, DateRangePicker, TimePicker, FileUpload`. In existing projects, a missing one is built first, with your OK.
+- **Basic form validation for every field:** required, type, length, value range, allowed characters and format, each with a clear error message. **Official formats** (PAN, GSTIN, IFSC, phone, pincode, email…) are **checked on the web**, not assumed. Without web access, a rule is marked "unverified – please confirm".
 - **Reuse first.** New code goes in new components or hooks, so giant files don't keep growing.
 - **Touched-code rule:** it fixes small problems only in lines it's already changing, and reports the rest.
 - **Every hand-over includes:** files changed, assumptions, a **manual check list** ("open X → do Y → expect Z"), **affected screens**, and open decisions.
@@ -94,7 +96,7 @@ Audit ─► Semantic tokens (CSS variables, :root/.dark) ─► Mapping table �
 - **Accessible:** keyboard, focus, labels, contrast, focus-trapped dialogs
 - **States:** loading, empty, error, success and no permission are designed
 - **Edge data:** long text, 0 / 1 / many items, large numbers, slow network
-- **Forms:** inline validation, a loading submit button, server errors, an unsaved-changes warning
+- **Forms:** basic per-field validation (official formats verified on the web), inline errors, a loading submit button, server errors, an unsaved-changes warning
 - **Text:** clear and specific; goes through i18n if the project has it; RTL-safe
 - **Typed:** no new `any`
 - **Dark mode:** included in new projects. In existing projects that already have it, new colours get dark values; in projects without it, it's built only when you ask.
@@ -135,10 +137,10 @@ ui-architect/
 | Part | Approx. tokens | Loaded |
 |---|---|---|
 | Name + description | ~170 | Always |
-| `SKILL.md` core | ~2,100 | When the skill triggers |
+| `SKILL.md` core | ~2,700 | When the skill triggers |
 | One flow | ~350–1,150 | Only the flow for the current task |
 | One template | ~200–750 | Only when the flow needs it |
-| **Typical run** (core + one flow + one template) | **~3,000–4,000** | |
+| **Typical run** (core + one flow + one template) | **~3,000–5,000** | |
 
 Most of the cost in real use is reading your code, not the skill.
 

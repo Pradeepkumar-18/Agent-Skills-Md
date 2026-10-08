@@ -35,8 +35,8 @@ Using: <project default or recorded override>
 - **New backend endpoints needed:** <none, or the spec. Backend code is changed only if approved.>
 
 ## 8. Forms and validation
-| Field | Type | Rules | Error message |
-|---|---|---|---|
+| Field | Type | Rules | Error message | Source (web link / common sense / unverified) |
+|---|---|---|---|---|
 - Schema: <file, only if the project uses a schema library>
 - Unsaved changes: <how leaving a dirty form is handled>
 

@@ -71,6 +71,12 @@ The project's memory across sessions.
 
 - **Existing codebase wins.** Follow its structure, naming, patterns, styling, API layer, forms and state, even where this skill's defaults differ. Never add Tailwind, TypeScript or new libraries unless asked.
 - **Reuse first.** Search for an existing component, hook, service or type before creating one.
+- **Custom components only.**
+  - Never use browser-default form controls (native date picker, checkbox, radio, select, file input…) or UI component libraries.
+  - Every control is a custom, reusable component: `Input, Textarea, NumberInput, Select, MultiSelect, Checkbox, Radio, Switch, DatePicker, DateRangePicker, TimePicker, FileUpload`.
+  - Checkbox, radio and switch are custom-styled, with the native input visually hidden underneath (keeps keyboard support and form submission).
+  - Select, MultiSelect and the date/time pickers are fully custom, with keyboard and ARIA support.
+  - **Existing projects:** use the project's custom component if it exists. If it's missing, build it first (`flows/design-system.md`, with the user's OK), then use it. Don't replace old native inputs unless asked.
 - **Don't grow giant files.** Put new code in new components or hooks, even if the page around it is already huge.
 - **Touched-code rule.** Fix obvious problems (a missing label, an `any`, a raw colour) only in lines you are already changing. Report the rest; don't change it.
 - **Backend:** read backend code freely when it helps (e.g. API contracts). Change it only with the user's explicit approval.
@@ -99,6 +105,11 @@ The project's memory across sessions.
   - dialogs trap focus and close on Esc
 - **States:** loading, empty, error and success are designed, not left blank.
 - **Edge data:** long text, 0 / 1 / many items, very large numbers, slow network, no permission.
+- **Form validation (basic, per field):**
+  - Work out what each field is for, then apply every basic rule that fits: required/optional, type, min/max length, min/max value, allowed characters, format pattern.
+  - **Official formats** (PAN, GSTIN, IFSC, phone, pincode/postal code, email…): check the format on the web, don't assume it. If web search isn't available, mark the rule "unverified – please confirm" and ask.
+  - Every rule has a clear error message, e.g. "Enter a valid 10-digit mobile number".
+  - Put verified rules in shared validators so they're reused.
 - **Forms:**
   - inline validation and a loading submit button
   - server errors shown

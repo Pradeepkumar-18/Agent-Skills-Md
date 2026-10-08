@@ -58,7 +58,7 @@ Scaffold and confirm each of these:
   - a global toast
   - a shared confirm dialog
 - **Layout shell:** navigation, header and the responsive drawer on mobile.
-- **Base shared components** in `components/ui/`.
+- **Base shared components** in `components/ui/`, including the full custom form-control set from `SKILL.md` (no native or library controls), plus shared validators in `utils/validators.ts` for official formats.
 - **UI showcase page** at `/dev/ui`, dev builds only: every shared component in every state, with a light/dark toggle. Update it whenever a shared component is added.
 - **Project README:** how to install, run and build; the env variables; a folder guide; and the main conventions (or a link to `docs/ui-decisions.md`).
 
