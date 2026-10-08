@@ -30,7 +30,13 @@ Works with **Antigravity**, **Gemini CLI**, **Codex CLI** and **Claude Code** (A
 
 ### Rules it always follows
 - **Your existing code wins.** It never adds Tailwind, TypeScript or libraries unasked, and writes code for your installed versions.
-- **Custom components only:** no browser-default controls (date picker, checkbox, select…) and no UI libraries. Every control is a custom, reusable component: `Input, Textarea, NumberInput, Select, MultiSelect, Checkbox, Radio, Switch, DatePicker, DateRangePicker, TimePicker, FileUpload`. In existing projects, a missing one is built first, with your OK.
+- **Custom components only:** no browser-default controls (date picker, checkbox, select…) and no UI libraries. Every control is a custom, reusable component: `Input, Textarea, NumberInput, Select, MultiSelect, Checkbox, Radio, Switch, DatePicker, DateRangePicker, TimePicker, FileUpload`.
+  - In existing projects, a missing one is built first, with your OK.
+  - Projects that already use a UI library (MUI, Ant…) keep using it.
+  - Charts, rich-text editors and maps may use a library, after asking, styled with your tokens.
+- **Security:** no secrets in `VITE_*` variables, no unsanitised HTML, no logging of tokens or personal data, file uploads checked.
+- **Data loading done right:** stale responses ignored, requests cancelled on leave, search debounced, clear refresh-after-save behaviour, server-side paging for big lists.
+- **Reads code efficiently:** searches first, reads only relevant parts of large files, never re-reads.
 - **Basic form validation for every field:** required, type, length, value range, allowed characters and format, each with a clear error message. **Official formats** (PAN, GSTIN, IFSC, phone, pincode, email…) are **checked on the web**, not assumed. Without web access, a rule is marked "unverified – please confirm".
 - **Reuse first.** New code goes in new components or hooks, so giant files don't keep growing.
 - **Touched-code rule:** it fixes small problems only in lines it's already changing, and reports the rest.
@@ -99,6 +105,8 @@ Audit ─► Semantic tokens (CSS variables, :root/.dark) ─► Mapping table �
 - **Forms:** basic per-field validation (official formats verified on the web), inline errors, a loading submit button, server errors, an unsaved-changes warning
 - **Text:** clear and specific; goes through i18n if the project has it; RTL-safe
 - **Typed:** no new `any`
+- **Tables:** one standard (`templates/table-standard.md`): sticky header, truncation, row actions, selection + bulk bar, URL paging, a card layout on mobile
+- **Performance:** lazy routes, heavy libraries loaded only where used, paginated or virtualised lists, sized images
 - **Dark mode:** included in new projects. In existing projects that already have it, new colours get dark values; in projects without it, it's built only when you ask.
 
 ## Default stack (new projects only)
@@ -114,6 +122,8 @@ In existing projects, **your stack always wins**.
 ui-architect/
 ├── SKILL.md                       # core: role, mode detection, rules, quality bar, routing table
 ├── README.md                      # this file (for humans)
+├── CHANGELOG.md                   # version history (current version is at the top of SKILL.md)
+├── TESTING.md                     # 12 test prompts with expected behaviour
 ├── flows/                         # loaded only when that task comes up
 │   ├── existing-project.md
 │   ├── new-project.md
@@ -129,7 +139,8 @@ ui-architect/
     ├── batch-plan-template.md
     ├── decisions-template.md
     ├── feature-plan-template.md
-    └── folder-structure.md
+    ├── folder-structure.md
+    └── table-standard.md
 ```
 
 ## Token cost
@@ -137,10 +148,10 @@ ui-architect/
 | Part | Approx. tokens | Loaded |
 |---|---|---|
 | Name + description | ~170 | Always |
-| `SKILL.md` core | ~2,700 | When the skill triggers |
+| `SKILL.md` core | ~3,300 | When the skill triggers |
 | One flow | ~350–1,150 | Only the flow for the current task |
 | One template | ~200–750 | Only when the flow needs it |
-| **Typical run** (core + one flow + one template) | **~3,000–5,000** | |
+| **Typical run** (core + one flow + one template) | **~3,700–5,500** | |
 
 Most of the cost in real use is reading your code, not the skill.
 
@@ -172,13 +183,15 @@ your-project/
 - **Gemini CLI:** same, but into `.agents\skills\`.
 - **Personal install for all projects:** see the [repo README](../README.md).
 
-### Updating
+### Updating all projects at once
+Use the sync script in the repo (see the [repo README](../README.md#sync-script)):
 ```powershell
-cd "$env:USERPROFILE\Agent-Skills-Md"; git pull; cd -
-Remove-Item ".agent\skills\ui-architect" -Recurse -Force
-Copy-Item "$env:USERPROFILE\Agent-Skills-Md\ui-architect" ".agent\skills\" -Recurse -Force
+& "$env:USERPROFILE\Agent-Skills-Md\scripts\sync-skills.ps1"
 ```
-Delete the old folder before copying, so files that were moved or removed don't linger.
+It pulls the repo, refreshes the skill in every project listed in `sync-projects.txt`, removes stale files, and prints the installed version.
+
+## Testing
+See [TESTING.md](TESTING.md): 12 prompts with the expected behaviour for each, to check the skill in Antigravity, Gemini CLI, Codex or Claude Code.
 
 ## Usage
 

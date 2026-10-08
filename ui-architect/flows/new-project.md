@@ -17,6 +17,8 @@ Propose a structure based on `templates/folder-structure.md`, adapted to this pr
 ## 4. Theme
 Present the options: colours (light + dark), typography, radius, spacing, shadows, with your recommendation.
 
+Include **status and category tokens** the domain needs (e.g. success/warning/info, pipeline or deal stages, priority levels), each with light and dark values. This keeps screens from inventing raw colours later.
+
 **Visual preview:** if chosen, generate one self-contained HTML file (`docs/theme-preview.html`), with no build step. Show each option side by side in light and dark:
 - the palette swatches
 - the type scale
@@ -41,12 +43,13 @@ Recommend each of these, all in one message:
 → *Checkpoint*
 
 ## 6. Set up
-Scaffold and confirm each of these:
+Scaffold each of these and verify it works (no checkpoint):
 - **Base:**
   - Vite + React + TS (strict)
   - path alias `@/` → `src/`
   - ESLint + Prettier
-  - `.env.example` with `VITE_API_BASE_URL` (never commit real `.env` values)
+  - `.env.example` with `VITE_API_BASE_URL` (never commit real `.env` values; `VITE_*` values are public, so no secrets)
+  - lazy-loaded routes (`React.lazy` + `Suspense`) from the start
 - **Theme:** tokens with light and dark values, and a class-based dark mode toggle.
 - **API layer:**
   - `services/apiClient.ts` (axios) with the base URL, an auth header and the 401 interceptor

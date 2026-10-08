@@ -33,6 +33,8 @@ Write the plan with `templates/feature-plan-template.md`. It must include:
 - **Wireframe:** a low-fidelity layout as an ASCII sketch in the plan, showing regions, key controls and the mobile layout. Generate an HTML wireframe instead only if the user asks.
 - **Density:** state what you'll use (default or recorded override). Ask only if this page type has no precedent.
 - **URL state:** filters, tabs, sorting, pagination and the selected record live in the URL, so refreshing and deep links work.
+- **Data loading:** server or client paging, and refresh-after-save behaviour (see "Data loading rules" below).
+- **Tables:** follow `templates/table-standard.md` for any new or changed table.
 - **Unsaved changes:** how leaving a dirty form is handled.
 - **Navigation updates:**
   - sidebar or menu entry
@@ -53,6 +55,17 @@ If the feature has slices, or will clearly span sessions, and the decisions file
 - set its status (in progress / done)
 
 A new session will find it at Step 0.
+
+## Data loading rules (no TanStack Query by default)
+In existing projects, follow the project's data pattern. Without one, apply these:
+- **Stale responses:** when a newer request replaces an older one (search, filters, paging), ignore or abort the older one, so a slow old response never overwrites new data. Use `AbortController` or a request id.
+- **Cancel on leave:** abort in-flight requests when the component unmounts or the inputs change.
+- **Debounce typing:** search-as-you-type waits about 300ms before calling the API.
+- **After a save:** either reload the affected list, or update it in place from the server response. State which in the plan. Never show data the server didn't confirm, unless the plan says it's an optimistic update and how it's rolled back on failure.
+- **Server or client paging:** use server-side paging, sorting and filtering when the list can grow past about 200 rows. Client-side is fine for small fixed lists. Say which in the plan.
+- **Loading vs refreshing:** show a full skeleton only on first load. Later refreshes keep the old data visible with a subtle indicator.
+- **Errors:** show a retry action on load errors. Never leave a blank screen.
+- **Double submit:** disable submit while saving.
 
 ## 6. Build
 Code everything in the approved plan (or slice), in this order:

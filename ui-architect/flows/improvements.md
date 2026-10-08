@@ -4,7 +4,7 @@ Use this for "fix the High items", "do the top 5", "replace hard-coded colours",
 
 ## Act on the analysis
 1. Take the chosen findings (from the analysis or the user's list).
-2. **Group them into batches.** One concern per batch, small enough to check by hand in about 10 minutes (e.g. "Batch 1: tokens in Schedule, 4 files").
+2. **Group them into batches.** One concern per batch, **at most about 6 files**, small enough to check by hand in about 10 minutes (e.g. "Batch 1: tokens in Schedule, 4 files"). Split bigger groups.
 3. **Order by risk:** safe and isolated first, shared components and wide changes last.
 4. Write the batch plan with `templates/batch-plan-template.md`. → *Checkpoint*
 5. Do **one batch at a time.** After each batch, hand over (changes, manual check list, affected screens) and continue only when the user says so, unless they said "do all batches".

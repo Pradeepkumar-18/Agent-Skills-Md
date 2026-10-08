@@ -3,7 +3,7 @@
 **Source:** <analysis findings / user list / migration guide / audit>
 **Rule:** behaviour and appearance stay the same unless listed under "Intended changes".
 
-## Batches (ordered by risk: safest first)
+## Batches (ordered by risk: safest first; at most about 6 files each)
 
 ### Batch 1: <one concern>
 - **Files:** <paths> (<N> files)

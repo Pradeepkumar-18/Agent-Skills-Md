@@ -79,7 +79,36 @@ No environment variables are needed. `$env:USERPROFILE` is Windows' built-in pat
 | Not picked up after copying | Start a new conversation or reload the window |
 | Wrong project detected | Open the project root as the workspace, not a parent or child folder |
 
-## Updating
+## Sync script
+
+`scripts/sync-skills.ps1` installs or updates skills in **all your projects at once**. It runs on Windows PowerShell 5.1+.
+
+For each project it:
+1. runs `git pull` on this repo
+2. mirrors each skill into the project (new files added, changed files updated, removed files deleted)
+3. prints the installed version
+
+It only ever touches `<project>\.agent\skills\<skill>` (and `.agents\skills\<skill>` for Gemini CLI).
+
+**One-time setup:** copy `sync-projects.example.txt` to `sync-projects.txt` and list your project root folders, one per line. `sync-projects.txt` is git-ignored.
+
+```powershell
+cd "$env:USERPROFILE\Agent-Skills-Md"
+
+.\scripts\sync-skills.ps1                                   # all projects in sync-projects.txt (Antigravity)
+.\scripts\sync-skills.ps1 -DryRun                           # preview only, changes nothing
+.\scripts\sync-skills.ps1 -Tool both                        # Antigravity (.agent) + Gemini CLI (.agents)
+.\scripts\sync-skills.ps1 -Projects "D:\work\crm-ui"        # specific project(s)
+.\scripts\sync-skills.ps1 -Skills ui-architect              # specific skill(s)
+.\scripts\sync-skills.ps1 -Personal codex,gemini            # personal folders (all projects) for those tools
+.\scripts\sync-skills.ps1 -NoPull                           # skip git pull
+```
+
+If PowerShell blocks the script, run it once with `powershell -ExecutionPolicy Bypass -File .\scripts\sync-skills.ps1`.
+
+After syncing, start a **new conversation** in your tool so it loads the updated skill.
+
+## Updating by hand
 
 ```powershell
 cd "$env:USERPROFILE\Agent-Skills-Md"

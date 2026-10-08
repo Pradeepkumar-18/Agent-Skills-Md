@@ -37,12 +37,12 @@ Use this when something is broken: a popup not closing, broken layout, a wrong s
 |---|---|
 | **Evidence of the bug** | Run this bug-fix flow. Read the visible symptoms to help find the root cause. **Never treat it as a design to build.** |
 | **The target design** ("make it look like this") | It's a design change, not a bug: `flows/reference-image.md` + feature plan with a checkpoint |
-| **The spec it should already match** | **Mismatch fix:** list each difference as *current → expected* (mapped to tokens), and fix **only those**. Checkpoint only if a difference changes behaviour or touches a shared component. Compare again afterwards |
+| **The spec it should already match** | **Mismatch fix:** list each difference as *current → expected* (mapped to tokens), and fix **only those**. Apply the visual-only differences straight away. Differences that change behaviour or content, or touch a shared component, are listed with a recommendation and asked about in the hand-over. If the design doesn't show a state (e.g. a "Pending" status), pick the closest token, mark it "(guessed)" and ask. Compare again afterwards |
 
 ## Hotfix mode
 
 Triggered by "urgent", "production is broken", "hotfix" and similar.
-- Skip the analysis, the decisions-file question and checkpoints.
+- Skip **every** first-use step (don't read `flows/existing-project.md`, no analysis), the decisions-file question and checkpoints. Ask the decisions-file question only in the hand-over.
 - Make the **smallest safe fix** that stops the damage, even if it isn't the ideal design.
 - Never mix in refactoring or unrelated changes.
 - Hand-over adds a **follow-up note:** what the proper fix is, and why the hotfix is temporary.

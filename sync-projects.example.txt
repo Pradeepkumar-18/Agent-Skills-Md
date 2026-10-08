@@ -1,0 +1,4 @@
+# Copy this file to sync-projects.txt and list your project root folders, one per line.
+# Lines starting with # are ignored. sync-projects.txt is git-ignored, so your paths stay local.
+C:\Users\you\work\crm-ui
+D:\projects\shop-frontend
