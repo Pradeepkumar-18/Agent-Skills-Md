@@ -8,7 +8,7 @@ A skill is a folder with a `SKILL.md` file (instructions plus a `name` and `desc
 
 | Skill | What it does | Docs |
 |---|---|---|
-| [ui-architect](ui-architect/) | Senior UI/UX lead and UI architect for **React + TypeScript + Tailwind** projects: analysis, new-project setup, features, reference images, bug fixes | [README](ui-architect/README.md) |
+| [ui-architect](ui-architect/) | Senior UI/UX lead and UI architect for **React + TypeScript + Tailwind** projects: analysis, new-project setup, features, reference images, bug fixes, refactoring, UI review, design system, migrations | [README](ui-architect/README.md) |
 
 Each skill has its own README with its full behaviour, flows and usage examples.
 
@@ -22,7 +22,7 @@ Clone the repo once:
 git clone https://github.com/Pradeepkumar-18/Agent-Skills-Md.git "$env:USERPROFILE\Agent-Skills-Md"
 ```
 
-Then copy the skill folder you want to where your tool looks for skills. Keep the folder name the same as the skill name, and keep all its files directly inside it. In the commands below, replace `<skill-name>` with a folder from the table above, e.g. `ui-architect`.
+Then copy the skill folder you want to where your tool looks for skills. Copy the **whole folder, including its subfolders** (e.g. `flows/`, `templates/`), and keep the folder name the same as the skill name. In the commands below, replace `<skill-name>` with a folder from the table above, e.g. `ui-architect`.
 
 ### Per project (shared with your team through git)
 
@@ -33,12 +33,12 @@ $skill = "<skill-name>"
 $src = "$env:USERPROFILE\Agent-Skills-Md\$skill"
 
 # Antigravity: .agent\skills (no "s" after agent)
-New-Item -ItemType Directory -Force ".agent\skills\$skill" | Out-Null
-Copy-Item "$src\*" ".agent\skills\$skill\" -Force
+New-Item -ItemType Directory -Force ".agent\skills" | Out-Null
+Copy-Item $src ".agent\skills\" -Recurse -Force
 
 # Gemini CLI: .agents\skills
-New-Item -ItemType Directory -Force ".agents\skills\$skill" | Out-Null
-Copy-Item "$src\*" ".agents\skills\$skill\" -Force
+New-Item -ItemType Directory -Force ".agents\skills" | Out-Null
+Copy-Item $src ".agents\skills\" -Recurse -Force
 ```
 
 Result:
@@ -86,7 +86,7 @@ cd "$env:USERPROFILE\Agent-Skills-Md"
 git pull
 ```
 
-Then run the copy commands again for each project or tool you use.
+Then, for each project or tool, **delete the old skill folder** and run the copy commands again. Deleting first makes sure files that were moved or removed don't linger.
 
 ---
 

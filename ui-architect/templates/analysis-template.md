@@ -45,3 +45,5 @@ Only list patterns that are real alternatives in current code and that matter fo
 - **Top 5 issues:** one line each, with priority
 - **Inconsistencies that affect this feature:** the table above, only the relevant rows
 - "Want the full analysis? Just ask."
+
+After either version, offer: "Want me to plan fixes for these?" (batch plan, one batch at a time)

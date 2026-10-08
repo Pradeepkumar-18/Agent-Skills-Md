@@ -6,129 +6,103 @@ Works with **Antigravity**, **Gemini CLI**, **Codex CLI** and **Claude Code** (A
 
 ---
 
-## What it does
+## What it covers
 
-| Capability | Summary |
-|---|---|
-| **Two modes** | Detects whether the project is **new** or **existing**. It finds the frontend by looking for the `package.json` that lists React, so monorepos work too |
-| **Existing projects** | Follows your codebase's patterns and tools. It never adds Tailwind, TypeScript or libraries unless you ask |
-| **Analysis** | A pointed list of findings in 8 areas: current state → problem → improvement → **High / Medium / Low** |
-| **New projects** | Step by step: idea → folder structure → density + theme format → theme → state, pages and flows → build |
-| **Features** | Plan-first: understand → context → plan (your approval) → build → self-review → summary |
-| **Small changes** | Short path for changes that touch 2 files or fewer, with no new component, route or API call |
-| **Reference images** | Reads a screenshot or mock-up, confirms what it sees, maps it to your tokens and icons, and compares the result |
-| **Bug fixes** | Finds the root cause, fixes it minimally, reports the same bug elsewhere, and verifies |
-| **Memory** | Keeps `docs/ui-decisions.md` in your project, after **asking once per project** |
+| Area | What it does | Flow file |
+|---|---|---|
+| **Existing projects** | Follows your codebase, analyses it (8 areas, High/Medium/Low), asks about inconsistent patterns only when they matter | `flows/existing-project.md` |
+| **New projects** | Idea → structure → density + theme (optional HTML preview) → state, auth, formatting, pages → setup (env, aliases, lint, error pages, mocks, `/dev/ui` showcase, README) | `flows/new-project.md` |
+| **Features** | Understand → context (API contract, impact) → slices for large features → plan with acceptance criteria and a wireframe → build → hand-over | `flows/feature.md` |
+| **Small changes** | Short path for changes that touch 2 files or fewer, with no new component, route or API call | `flows/feature.md` |
+| **Reference images** | Reads a screenshot or mock-up, confirms what it sees, maps it to your tokens and icons, compares the result | `flows/reference-image.md` |
+| **Bug fixes** | Root cause → minimal fix → report the same bug elsewhere → verify. Extra checks per bug type, "fix this" with an image, hotfix mode | `flows/bug-fix.md` |
+| **Improvements** | Acts on the analysis in safe batches, refactors without changing behaviour, fixes a pattern everywhere (pilot → rollout) | `flows/improvements.md` |
+| **UI/UX review** | Reviews a screen or PR for UX, consistency, states, accessibility and text. Report only | `flows/review.md` |
+| **Design system** | Shared components (API, variants, states, accessibility), theme change, rebrand, adding dark mode, density change, as token migrations | `flows/design-system.md` |
+| **Migrations** | Old → new screen cut-overs, library or Tailwind upgrades in batches | `flows/migration.md` |
 
 ### How it behaves
-- Gives **one recommendation with the reason**, not a menu of options.
-- **Pushes back** on choices that hurt UX or architecture, then does what you decide.
+- Gives **one recommendation with the reason**, and **pushes back** on choices that hurt UX or architecture.
 - Points out **UX problems you didn't ask about**.
 - Stops for approval only at **major decisions**.
-- **You stay in control.** Say "skip the checkpoints", reject any step, or go back to an earlier decision.
+- **You stay in control:** "skip the checkpoints", reject any step, go back to an earlier decision.
+- **Never commits** or pushes unless you ask. **Never writes tests** unless you ask.
+
+### Rules it always follows
+- **Your existing code wins.** It never adds Tailwind, TypeScript or libraries unasked, and writes code for your installed versions.
+- **Reuse first.** New code goes in new components or hooks, so giant files don't keep growing.
+- **Touched-code rule:** it fixes small problems only in lines it's already changing, and reports the rest.
+- **Every hand-over includes:** files changed, assumptions, a **manual check list** ("open X → do Y → expect Z"), **affected screens**, and open decisions.
 
 ---
 
-## Flows
+## Flows at a glance
 
 ### Existing project: first use
 | Your first request | What it does |
 |---|---|
-| "Analyse this project", or no specific task | Full 8-area analysis |
-| A feature | Short analysis (top 5 + relevant inconsistencies), then straight into the feature |
-| A small change | Does the change, then offers the analysis |
-
-The decisions-file question and any inconsistent-pattern questions come in **the same message**.
-
-**Inconsistent patterns:** it asks only when the choice affects the feature. Otherwise it follows the newest or documented pattern and tells you.
-
-### Analysis areas
-1. Folder structure
-2. Component reuse and duplication
-3. Styling usage (tokens vs hard-coded values)
-4. TypeScript quality
-5. Accessibility
-6. Responsiveness
-7. Performance
-8. Consistency between screens
-
-Each finding is backed by real file paths, and the analysis ends with the **top 5 to fix first**.
+| "Analyse this project", or no specific task | Full analysis |
+| A feature | Short analysis (top 5 + relevant inconsistencies), then the feature |
+| A small change or a bug | Does it, then offers the analysis |
 
 ### New project
 ```
-Idea + recommendation ─► Folder structure ─► Density + theme format ─► Theme
-   ─► State + pages + flows ─► Set up ─► Pages (feature flow)
+Idea ─► Structure ─► Density + theme format ─► Theme (+ HTML preview)
+  ─► State, auth, formatting, pages, build order ─► Setup ─► Pages (feature flow)
 ```
-Each arrow is a checkpoint where it waits for your OK.
 
 ### Feature
 ```
-Understand ─► Context ─► Plan ─► Build ─► Self-review ─► Hand-over
-   (OK)                  (OK)
+Understand (OK) ─► Context ─► Size check (slices) ─► Plan (OK) ─► Build ─► Self-review ─► Hand-over
 ```
-- The plan follows `feature-plan-template.md`: UX flow, components (new vs reuse), API, forms, states, quality checks, patterns followed, risks, build order.
-- Missing backend endpoints are **specified in the plan** and built only if you approve.
-- Build order: types → schemas (if used) → service → shared components → page → route/nav.
+The plan includes:
+- acceptance criteria
+- an ASCII wireframe
+- the API contract (from types, docs or the backend repo; never guessed)
+- edge data handling
+- URL state
+- an unsaved-changes guard
+- navigation updates
+- the final wording
+- the impact list
 
-### Reference image
-```
-Read image ─► "What I see" (OK) ─► What the image can't show ─► Map to project ─► Plan ─► Build ─► Compare
-```
-- Colours map to your **existing tokens**. If they differ a lot, it asks "match exactly or adapt?" and recommends adapting.
-- Icons are redrawn in your icon set, and spacing follows your density.
-- **Logos and other brands' content are never copied**, only layout and style.
-- After building, it compares a screenshot with the reference if the tool can take one.
+Large features are split into slices and saved to `docs/plans/` so another session can continue.
 
 ### Bug fix
 ```
-Understand ─► Root cause ─► Classify (UI / API / backend) ─► Minimal fix ─► Same bug elsewhere? ─► Verify ─► Summary
+Understand ─► Root cause ─► Classify (UI / API / backend) ─► Minimal fix ─► Same bug elsewhere? ─► Verify
 ```
-- It explains *why* the bug happens before fixing it.
-- It **reports** the same bug in other places and the real fix (e.g. a shared component), without changing them.
-- A local fix goes straight through. It stops only if the fix changes behaviour, touches a shared component, or needs backend changes.
+- **Extra checks by bug type:** mobile layout (360/768/1280), slowness (measure first), accessibility, forms, popups.
+- **"Fix this" with an image:** first works out whether the image shows **the bug**, **the target design**, or **the spec to match**. For the spec, it runs a *current → expected* mismatch fix.
+- **Hotfix mode** ("urgent", "production is broken"): smallest safe fix, no checkpoints, plus a follow-up note.
 
-### "Fix this" with an image
-It first works out what the image is for. If your words don't make that clear, it asks one question: *"Is this image showing the bug, or how it should look?"*
-
-| Image is… | What it does |
-|---|---|
-| **The bug** (screenshot of the broken screen) | Bug-fix flow. It uses the image as evidence to find the cause and never copies it as a design |
-| **The target design** ("make it look like this") | Treats it as a design change: reference-image flow + feature plan for your approval |
-| **The spec it should already match** ("doesn't match the design") | **Mismatch fix:** lists each difference as *current → expected* (in your tokens) and fixes only those |
-
-Example mismatch list:
+### Improvements
 ```
-1. Header padding 12px → 20px
-2. Close button: "Cancel" text → X icon, top-right
-3. Footer buttons: left → right-aligned, primary last
-4. Radius 4px → 12px (rounded-xl token)
-Fixing these 4 only. Everything else already matches.
+Findings ─► Batch plan (OK) ─► Batch 1 ─► hand-over ─► Batch 2 ─► …
+```
+- Fixing a pattern everywhere: shared component → pilot on one screen → roll out in batches.
+
+### Theme change or dark mode (existing projects, only when you ask)
+```
+Audit ─► Semantic tokens (CSS variables, :root/.dark) ─► Mapping table ─► Preview ─► Batches
 ```
 
 ---
 
 ## Quality bar (every screen it builds or changes)
-- **Responsive** from mobile to desktop, with 44px touch targets on mobile
-- **Accessible:** semantic HTML, keyboard reachable, visible focus, labels, contrast, focus-trapped dialogs
-- **States:** loading, empty, error and success are designed
-- **Forms:** inline validation, a loading submit button, server errors shown
+- **Responsive** from 360px to desktop, with 44px touch targets on mobile
+- **Accessible:** keyboard, focus, labels, contrast, focus-trapped dialogs
+- **States:** loading, empty, error, success and no permission are designed
+- **Edge data:** long text, 0 / 1 / many items, large numbers, slow network
+- **Forms:** inline validation, a loading submit button, server errors, an unsaved-changes warning
+- **Text:** clear and specific; goes through i18n if the project has it; RTL-safe
 - **Typed:** no new `any`
-- **Dark mode:** included in new projects; in existing projects only **when you ask**
+- **Dark mode:** included in new projects. In existing projects that already have it, new colours get dark values; in projects without it, it's built only when you ask.
 
 ## Default stack (new projects only)
-| Area | Choice |
-|---|---|
-| Base | React + TypeScript (strict) + Vite |
-| Styling | Tailwind CSS (v4 `@theme` tokens), class-based dark mode |
-| Routing | React Router |
-| API | axios client + one service per module (no TanStack Query) |
-| Forms | React Hook Form + Zod (`src/schemas/`) |
-| Icons | lucide-react |
-| Components | Built from scratch, no component library |
-| Global state | Chosen per project |
-| Tests | None unless asked |
+React + TS (strict) + Vite · Tailwind v4 (`@theme` tokens) · React Router · axios (no TanStack Query) · React Hook Form + Zod · lucide-react · custom components (no library) · global state chosen per project · no tests unless asked.
 
-In existing projects, **the project's own stack always wins**.
+In existing projects, **your stack always wins**.
 
 ---
 
@@ -136,54 +110,94 @@ In existing projects, **the project's own stack always wins**.
 
 ```
 ui-architect/
-├── SKILL.md                   # main instructions (what the agent loads)
-├── README.md                  # this file (for humans)
-├── analysis-template.md       # analysis format (full + short)
-├── decisions-template.md      # template for docs/ui-decisions.md
-├── feature-plan-template.md   # plan shown for approval before coding
-└── folder-structure.md        # recommended structure for new projects
+├── SKILL.md                       # core: role, mode detection, rules, quality bar, routing table
+├── README.md                      # this file (for humans)
+├── flows/                         # loaded only when that task comes up
+│   ├── existing-project.md
+│   ├── new-project.md
+│   ├── feature.md
+│   ├── reference-image.md
+│   ├── bug-fix.md
+│   ├── improvements.md
+│   ├── review.md
+│   ├── design-system.md
+│   └── migration.md
+└── templates/                     # loaded only when a flow needs them
+    ├── analysis-template.md
+    ├── batch-plan-template.md
+    ├── decisions-template.md
+    ├── feature-plan-template.md
+    └── folder-structure.md
 ```
 
 ## Token cost
+
 | Part | Approx. tokens | Loaded |
 |---|---|---|
 | Name + description | ~170 | Always |
-| `SKILL.md` | ~4,300 | Only when the skill triggers |
-| Each template | ~350–500 | Only when that step needs it |
+| `SKILL.md` core | ~2,100 | When the skill triggers |
+| One flow | ~350–1,150 | Only the flow for the current task |
+| One template | ~200–750 | Only when the flow needs it |
+| **Typical run** (core + one flow + one template) | **~3,000–4,000** | |
 
 Most of the cost in real use is reading your code, not the skill.
 
 ---
 
-## Installation
+## Installation (per project, Antigravity)
 
-Install it per project (shared with your team through git) from your **project root**:
+From your **project root** (the folder with `package.json`):
 
 ```powershell
+# 1. Get the skill (once)
 git clone https://github.com/Pradeepkumar-18/Agent-Skills-Md.git "$env:USERPROFILE\Agent-Skills-Md"
 
-# Antigravity
-New-Item -ItemType Directory -Force ".agent\skills\ui-architect" | Out-Null
-Copy-Item "$env:USERPROFILE\Agent-Skills-Md\ui-architect\*" ".agent\skills\ui-architect\" -Force
-
-# Gemini CLI
-New-Item -ItemType Directory -Force ".agents\skills\ui-architect" | Out-Null
-Copy-Item "$env:USERPROFILE\Agent-Skills-Md\ui-architect\*" ".agents\skills\ui-architect\" -Force
+# 2. Copy it into the project, including subfolders
+New-Item -ItemType Directory -Force ".agent\skills" | Out-Null
+Copy-Item "$env:USERPROFILE\Agent-Skills-Md\ui-architect" ".agent\skills\" -Recurse -Force
 ```
 
-See the [repo README](../README.md) for personal (all-projects) install paths for each tool.
+Result:
+```
+your-project/
+└── .agent/skills/ui-architect/
+    ├── SKILL.md
+    ├── README.md
+    ├── flows/      (9 files)
+    └── templates/  (5 files)
+```
+
+- **Gemini CLI:** same, but into `.agents\skills\`.
+- **Personal install for all projects:** see the [repo README](../README.md).
+
+### Updating
+```powershell
+cd "$env:USERPROFILE\Agent-Skills-Md"; git pull; cd -
+Remove-Item ".agent\skills\ui-architect" -Recurse -Force
+Copy-Item "$env:USERPROFILE\Agent-Skills-Md\ui-architect" ".agent\skills\" -Recurse -Force
+```
+Delete the old folder before copying, so files that were moved or removed don't linger.
 
 ## Usage
+
+Open the project root in Antigravity, start a **new conversation**, then:
 
 | Goal | Prompt |
 |---|---|
 | Analyse a project | *"Use the ui-architect skill and analyse this project."* |
+| Fix the analysis findings | *"Use ui-architect to fix the High items, one batch at a time."* |
 | New project | *"Use ui-architect. I want to build a CRM for small sales teams."* |
 | Feature | *"Use ui-architect to add a follow-up calls feature for leads."* |
 | Small change | *"Use ui-architect to add a status column to the leads table."* |
-| From an image | *"Use ui-architect to build a sidebar like this"* + attach the image |
+| From an image | *"Use ui-architect to build a sidebar like this"* + image |
 | Bug | *"Use ui-architect: the Add Stock popup doesn't close when I click outside."* |
-| Bug + screenshot | *"Use ui-architect to fix this"* + screenshot of the broken screen |
-| Match a design | *"Use ui-architect: this popup doesn't match the design, fix it"* + the design image |
+| Bug + screenshot | *"Use ui-architect to fix this"* + screenshot |
+| Match a design | *"Use ui-architect: this popup doesn't match the design, fix it"* + design |
+| Hotfix | *"Use ui-architect, urgent: checkout button does nothing in production."* |
+| Review | *"Use ui-architect to review the products page for UX."* |
+| Shared component | *"Use ui-architect to create a shared Modal and move the popups to it."* |
+| Dark mode | *"Use ui-architect to add dark mode."* |
+| Density | *"Use ui-architect to make the app more compact."* |
+| Migration | *"Use ui-architect to plan the Tailwind v3 → v4 upgrade."* |
 
 It also triggers automatically when your request matches. Naming it makes sure it's used.

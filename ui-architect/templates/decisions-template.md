@@ -9,17 +9,26 @@ Record what the project **actually uses**, not the skill's defaults. Mark inferr
 - **Purpose:** …
 - **Users / domain:** …
 - **Devices:** …
+- **Backend / API docs:** <repo path, Swagger URL, or "not ready: mocks in …">
 
-## Stack
-- Framework / build: <detected or chosen, with versions>
+## Stack (with major versions)
+- Framework / build: <…>
 - Styling: <e.g. Tailwind v4, where tokens live / CSS modules / …>
 - Routing: <…>
-- API layer: <client file, service folder, axios or fetch>
+- API layer: <client file, service folder, axios or fetch, mock flag>
 - Forms / validation: <library or "hand-written">
 - Global state: <choice + reason>
 - Icons: <…>
 - Dark mode: <working | not built: build only when asked>
+- i18n / RTL: <none | library + where strings live>
 - Tests: <convention, or "none unless asked">
+
+## Auth and access
+- Token storage: <…> · Session expiry handling: <…>
+- Roles and what they can see: <…>
+
+## Formatting
+- Locale: <e.g. en-IN> · Currency: <e.g. INR ₹> · Dates: <format> · Helper: <utils/format.ts>
 
 ## Folder structure
 ```
@@ -47,9 +56,14 @@ Record what the project **actually uses**, not the skill's defaults. Mark inferr
 | Tables | | |
 | Feedback (toasts) | | |
 | Icons | | |
+| URL state | | |
 
 ## Pages
-| Page | Route | Status |
+| Page | Route | Roles | Status |
+|---|---|---|---|
+
+## Plans in progress
+| Plan | File | Status |
 |---|---|---|
 
 ## Decision log
