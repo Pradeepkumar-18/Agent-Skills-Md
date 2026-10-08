@@ -199,6 +199,15 @@ Use this when the user reports something broken: a popup not closing, broken lay
 
 **Checkpoint only when** the fix changes behaviour or UX, touches a shared component used across many screens, or needs backend changes. A local fix goes straight through.
 
+### "Fix this" with an image
+**First decide what the image is for.** If it's not clear from the user's words, ask one question: *"Is this image showing the bug, or how it should look?"*
+
+| Image is… | Do this |
+|---|---|
+| **Evidence of the bug** (a screenshot of the broken screen) | Bug-fix flow. Read the visible symptoms (overlap, cut-off text, wrong state, error message) to help find the root cause. **Never treat it as a design to build.** |
+| **The target design** ("make it look like this") | This is a design change, not a bug. Run the Reference-images flow, then a feature plan with a checkpoint. |
+| **The spec it should already match** ("this doesn't match the design") | **Mismatch fix:** compare the current screen with the image, list each difference as *current → expected* (mapped to the project's tokens), and fix **only those**. Checkpoint only if a difference changes behaviour or touches a shared component. Then compare again (screenshot if the tool can take one). |
+
 ---
 
 ## Quality bar (every screen you build or change)
@@ -228,5 +237,6 @@ Use this when the user reports something broken: a popup not closing, broken lay
 | Small change | none, unless something is ambiguous |
 | Reference image | after "what I see" (then the usual feature-plan checkpoint) |
 | Bug fix | none for local fixes; before fixes that change behaviour/UX, touch shared components, or need backend changes |
+| Fix + image | one question if the image's role is unclear; then the checkpoints of the matching flow |
 
 Between checkpoints, work without asking.

@@ -87,6 +87,24 @@ Understand ─► Root cause ─► Classify (UI / API / backend) ─► Minimal
 - It **reports** the same bug in other places and the real fix (e.g. a shared component), without changing them.
 - A local fix goes straight through. It stops only if the fix changes behaviour, touches a shared component, or needs backend changes.
 
+### "Fix this" with an image
+It first works out what the image is for. If your words don't make that clear, it asks one question: *"Is this image showing the bug, or how it should look?"*
+
+| Image is… | What it does |
+|---|---|
+| **The bug** (screenshot of the broken screen) | Bug-fix flow. It uses the image as evidence to find the cause and never copies it as a design |
+| **The target design** ("make it look like this") | Treats it as a design change: reference-image flow + feature plan for your approval |
+| **The spec it should already match** ("doesn't match the design") | **Mismatch fix:** lists each difference as *current → expected* (in your tokens) and fixes only those |
+
+Example mismatch list:
+```
+1. Header padding 12px → 20px
+2. Close button: "Cancel" text → X icon, top-right
+3. Footer buttons: left → right-aligned, primary last
+4. Radius 4px → 12px (rounded-xl token)
+Fixing these 4 only. Everything else already matches.
+```
+
 ---
 
 ## Quality bar (every screen it builds or changes)
@@ -130,7 +148,7 @@ ui-architect/
 | Part | Approx. tokens | Loaded |
 |---|---|---|
 | Name + description | ~170 | Always |
-| `SKILL.md` | ~4,000 | Only when the skill triggers |
+| `SKILL.md` | ~4,300 | Only when the skill triggers |
 | Each template | ~350–500 | Only when that step needs it |
 
 Most of the cost in real use is reading your code, not the skill.
@@ -165,5 +183,7 @@ See the [repo README](../README.md) for personal (all-projects) install paths fo
 | Small change | *"Use ui-architect to add a status column to the leads table."* |
 | From an image | *"Use ui-architect to build a sidebar like this"* + attach the image |
 | Bug | *"Use ui-architect: the Add Stock popup doesn't close when I click outside."* |
+| Bug + screenshot | *"Use ui-architect to fix this"* + screenshot of the broken screen |
+| Match a design | *"Use ui-architect: this popup doesn't match the design, fix it"* + the design image |
 
 It also triggers automatically when your request matches. Naming it makes sure it's used.
