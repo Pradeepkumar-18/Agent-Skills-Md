@@ -1,25 +1,29 @@
 # UI Decisions
 
 Maintained by the ui-architect skill. Read before any frontend work. Update whenever a decision changes.
+Record what the project **actually uses**, not the skill's defaults. Mark inferred values "(to confirm)".
 
 ## Project
 - **Mode:** New | Existing
+- **Frontend root:** <path>
 - **Purpose:** …
 - **Users / domain:** …
 - **Devices:** …
 
 ## Stack
-- React <ver> + TypeScript + Vite
-- Tailwind <ver>: tokens defined in <file>
-- Routing: React Router
-- API: axios client in <file>, services in <folder>
-- Forms / validation: <e.g. React Hook Form + Zod>
+- Framework / build: <detected or chosen, with versions>
+- Styling: <e.g. Tailwind v4, where tokens live / CSS modules / …>
+- Routing: <…>
+- API layer: <client file, service folder, axios or fetch>
+- Forms / validation: <library or "hand-written">
 - Global state: <choice + reason>
-- Icons: lucide-react
+- Icons: <…>
+- Dark mode: <working | not built: build only when asked>
+- Tests: <convention, or "none unless asked">
 
 ## Folder structure
 ```
-<agreed tree>
+<agreed or detected tree>
 ```
 
 ## Theme
@@ -41,6 +45,8 @@ Maintained by the ui-architect skill. Read before any frontend work. Update when
 | Forms | | |
 | API service | | |
 | Tables | | |
+| Feedback (toasts) | | |
+| Icons | | |
 
 ## Pages
 | Page | Route | Status |

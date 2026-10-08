@@ -18,20 +18,28 @@ Acts as the most senior UI/UX lead and UI architect on your project. It plans, a
 
 ### What it does
 
-- **Detects the mode automatically**
-  - **Existing project** (`package.json` + `src/` present): follows your codebase's existing patterns and changes them only when you ask.
+- **Detects the mode automatically.** It finds the frontend by looking for the `package.json` that lists React, so monorepos work too. If there are several, it asks which one.
+  - **Existing project:** follows your codebase's existing patterns and tools, and changes them only when you ask.
   - **New project:** sets everything up from scratch.
-- **Analyses existing code** on first use, and whenever you ask. The result is a pointed list covering folder structure, component reuse, Tailwind usage, TypeScript quality, accessibility, responsiveness, performance and consistency. Every point gets a **High / Medium / Low** priority.
-- **Guides new projects step by step:** understand the idea → folder structure → UI density (dense or simple) → theme → global state → page list → build.
+- **Analyses existing code** as a pointed list covering folder structure, component reuse, styling, TypeScript quality, accessibility, responsiveness, performance and consistency. Every point gets a **High / Medium / Low** priority.
+  - Ask for an analysis, or open a project with no specific task: full analysis.
+  - Feature request: short analysis first.
+  - Small change: it makes the change first and offers the analysis afterwards.
+- **Asks about inconsistent patterns only when it matters.** If the choice affects the feature, it asks with a recommendation. Otherwise it follows the newest pattern and tells you.
+- **Guides new projects step by step:** understand the idea → folder structure → density (dense or simple) + theme format → theme → global state, pages and flows → build.
 - **Builds features** with a plan-first flow: understand → check context → plan (needs your approval) → code → self-review → summary.
-- **Remembers decisions** in `docs/ui-decisions.md` inside your project, so later sessions don't ask again.
-- **Holds every screen to a quality bar:** responsive, dark mode, accessibility, and loading/empty/error states.
+  - Small changes (2 files or fewer, with no new component, route or API call) take a short path.
+  - Missing backend endpoints are specified in the plan and built only if you approve.
+- **Remembers decisions** in `docs/ui-decisions.md` inside your project. It **asks once per project** before creating that file.
+- **Holds every screen it builds to a quality bar:** responsive (44px touch targets on mobile), accessible, with designed loading/empty/error states.
+  - **Dark mode:** included in new projects. In existing projects it's built **only when you ask**.
+- **You stay in control.** Say "skip the checkpoints" to let it run on its recommendations, reject any step to get it revised, or go back to an earlier decision.
 
 ### Default stack (new projects)
 
 React + TypeScript + Vite · Tailwind CSS · React Router · axios (no TanStack Query) · React Hook Form + Zod · lucide-react · custom-built components (no component library) · global state chosen per project.
 
-In existing projects, the project's own stack and patterns always win.
+In existing projects, the project's own stack and patterns always win. It never adds Tailwind, TypeScript or new libraries unless you ask. It is built for React; for Vue, Angular or Svelte it offers only its stack-neutral parts.
 
 ### Files
 
@@ -109,7 +117,12 @@ No environment variables are needed. `$env:USERPROFILE` is Windows' built-in pat
 | Build a feature | *"Use ui-architect to add a follow-up calls feature for leads."* |
 | Small change | *"Use ui-architect to add a status column to the leads table."* |
 
-The skill **stops for your approval** at major decisions: the idea summary, folder structure, density and theme, the page list, and every feature plan. Between those points it works on its own.
+The skill **stops for your approval** at major decisions:
+- **New project:** the idea summary, folder structure, density + theme format, theme, and state + pages.
+- **Existing project:** one combined first checkpoint.
+- **Any project:** every feature plan.
+
+Small changes run without stopping unless something is ambiguous.
 
 ### Troubleshooting
 
