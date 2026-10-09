@@ -8,7 +8,7 @@ A skill is a folder with a `SKILL.md` file (instructions plus a `name` and `desc
 
 | Skill | What it does | Docs |
 |---|---|---|
-| [ui-architect](ui-architect/) | Senior UI/UX lead and UI architect for **React + TypeScript + Tailwind** projects: analysis, new-project setup, features, reference images, bug fixes, refactoring, UI review, design system, migrations | [README](ui-architect/README.md) |
+| [ui-architect](ui-architect/) (v3.0.0) | Keeps a **React + TypeScript + Tailwind** frontend consistent: reuses components first, extracts repeated UI into **customisable shared components**, keeps a component inventory, follows an agreed **project structure**, and asks you before structural decisions | [README](ui-architect/README.md) |
 
 Each skill has its own README with its full behaviour, flows and usage examples.
 
@@ -22,7 +22,7 @@ Clone the repo once:
 git clone https://github.com/Pradeepkumar-18/Agent-Skills-Md.git "$env:USERPROFILE\Agent-Skills-Md"
 ```
 
-Then copy the skill folder you want to where your tool looks for skills. Copy the **whole folder, including its subfolders** (e.g. `flows/`, `templates/`), and keep the folder name the same as the skill name. In the commands below, replace `<skill-name>` with a folder from the table above, e.g. `ui-architect`.
+Then copy the skill folder you want to where your tool looks for skills. Copy the **whole folder, including its subfolders** (e.g. `references/`, `templates/`), and keep the folder name the same as the skill name. In the commands below, replace `<skill-name>` with a folder from the table above, e.g. `ui-architect`.
 
 ### Per project (shared with your team through git)
 
