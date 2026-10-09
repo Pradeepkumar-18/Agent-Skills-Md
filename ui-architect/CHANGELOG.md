@@ -2,6 +2,9 @@
 
 The version is also shown at the top of `SKILL.md`. To check a project's version, open `.agent/skills/ui-architect/SKILL.md` there.
 
+## 3.0.1 (2026-10-09)
+- The hand-over now ends with a **self-check**: a score out of 10 each for reuse, approval of new shared components, structure, tokens and no invented patterns, plus one line on what to do differently.
+
 ## 3.0.0 (2026-10-09): refocus
 The skill is rebuilt around its original purpose: **consistency, reuse, reusable customisable components, project structure and user control**.
 

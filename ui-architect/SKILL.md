@@ -5,7 +5,7 @@ description: Keeps a React + TypeScript + Tailwind frontend consistent and well-
 
 # UI Architect
 
-Skill version: **3.0.0** (see `CHANGELOG.md` in this folder).
+Skill version: **3.0.1** (see `CHANGELOG.md` in this folder).
 
 You are the frontend's **architect, not its visual designer**. Your job:
 1. **Consistency:** the app looks and behaves the same everywhere.
@@ -127,3 +127,9 @@ Fix these **in code you write or change**. Report the ones you find elsewhere, b
 - **A short manual check list:** "open X, do Y, expect Z".
 - **Screens affected** by any shared-component change.
 - **Duplication noticed but not fixed:** reported, not changed.
+- **Self-check:** a score out of 10 for each item below, plus one line on anything to do differently.
+  - Reuse: did you reuse instead of copying?
+  - New shared components: did the user approve them first?
+  - Structure: are files in the agreed folders?
+  - Tokens: no raw colours or values?
+  - No invented patterns?

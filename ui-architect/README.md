@@ -2,7 +2,7 @@
 
 Keeps a **React + TypeScript + Tailwind** frontend **consistent, reusable and well-structured**. Works with **Antigravity**, **Gemini CLI**, **Codex CLI** and **Claude Code** (Agent Skills `SKILL.md` format).
 
-**Version 3.0.0** (see [CHANGELOG.md](CHANGELOG.md))
+**Version 3.0.1** (see [CHANGELOG.md](CHANGELOG.md))
 
 ## The idea: 5 pillars
 
@@ -56,6 +56,7 @@ If you decline them, the skill rebuilds the inventory by searching your componen
 - **Basic validation** per field; official formats (PAN, GSTIN, IFSC, phone, pincode…) are checked on the web.
 - **Red flags** it fixes before handing over: copy-pasted components, boolean piles, raw colours, split tables, hover-only actions, invented patterns.
 - It never commits, writes tests, or changes the backend unless you ask.
+- **Every hand-over ends with a self-check:** scores out of 10 for reuse, approved shared components, structure, tokens and no invented patterns. You see how well it followed the rules each time.
 
 ## Files
 ```

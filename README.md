@@ -8,7 +8,7 @@ A skill is a folder with a `SKILL.md` file (instructions plus a `name` and `desc
 
 | Skill | What it does | Docs |
 |---|---|---|
-| [ui-architect](ui-architect/) (v3.0.0) | Keeps a **React + TypeScript + Tailwind** frontend consistent: reuses components first, extracts repeated UI into **customisable shared components**, keeps a component inventory, follows an agreed **project structure**, and asks you before structural decisions | [README](ui-architect/README.md) |
+| [ui-architect](ui-architect/) (v3.0.1) | Keeps a **React + TypeScript + Tailwind** frontend consistent: reuses components first, extracts repeated UI into **customisable shared components**, keeps a component inventory, follows an agreed **project structure**, and asks you before structural decisions | [README](ui-architect/README.md) |
 
 Each skill has its own README with its full behaviour, flows and usage examples.
 
